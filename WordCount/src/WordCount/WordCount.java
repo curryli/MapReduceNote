@@ -22,7 +22,8 @@ public class WordCount {
         private final static IntWritable one=new IntWritable(1);
         private Text word = new Text();
         @Override
-		public void map(Object key,Text value,Context context) throws IOException,InterruptedException{
+	//Object key,输入key、Text value输入value,  map reduce 共享context
+	public void map(Object key,Text value,Context context) throws IOException,InterruptedException{  
             StringTokenizer itr=new StringTokenizer(value.toString());
             while (itr.hasMoreTokens()) {
                 word.set(itr.nextToken());
@@ -35,7 +36,8 @@ public class WordCount {
     public static class IntSumReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
         private IntWritable result = new IntWritable();
         @Override
-		public void reduce(Text key, Iterable<IntWritable> values,Context context) throws IOException, InterruptedException {
+	//Text key,输入key、Iterable<IntWritable> values输入value,
+	public void reduce(Text key, Iterable<IntWritable> values,Context context) throws IOException, InterruptedException {
             int sum = 0;
             for (IntWritable val : values) {
                 sum += val.get();
