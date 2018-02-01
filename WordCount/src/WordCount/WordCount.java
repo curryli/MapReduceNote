@@ -36,7 +36,8 @@ public class WordCount {
     public static class IntSumReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
         private IntWritable result = new IntWritable();
         @Override
-	//Text key,输入key、Iterable<IntWritable> values输入value,
+	//Text key,输入key、Iterable<IntWritable> values输入value
+	//这里reduce函数输入值类型是Iterable<IntWritable>，是因为在map阶段根据key，把相同key的值组成了一个集合，传给reducer处理
 	public void reduce(Text key, Iterable<IntWritable> values,Context context) throws IOException, InterruptedException {
             int sum = 0;
             for (IntWritable val : values) {
