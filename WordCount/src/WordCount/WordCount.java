@@ -17,7 +17,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 public class WordCount {
-    //输入key值类型、输入value值类型、输出key值类型和输出value值类型。
+    //输入key值类型（这里map的key是行号，类型Object）、输入value值类型、输出key值类型和输出value值类型。
     public static class TokenizerMapper extends Mapper<Object,Text,Text,IntWritable>{
         private final static IntWritable one=new IntWritable(1);
         private Text word = new Text();
@@ -32,7 +32,7 @@ public class WordCount {
         }
     }
 
-  //输入key值类型、输入value值类型、输出key值类型和输出value值类型。
+  //输入key值类型（这里reduce的key是上面输出的key，即单词，类型Text）、输入value值类型、输出key值类型和输出value值类型。
     public static class IntSumReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
         private IntWritable result = new IntWritable();
         @Override
